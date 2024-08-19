@@ -3,15 +3,18 @@
   "compilerOptions": {
     "strict": true,
     "paths": {
-      "@/*": [
-        "./*"
-      ]
+      "@/*": ["./*"]
     }
   },
   "include": [
     "**/*.ts",
     "**/*.tsx",
     ".expo/types/**/*.ts",
-    "expo-env.d.ts"
+    "expo-env.d.ts",
+    "app/_layout.jsx",
+    "app/(dashboard)/_layout.jsx",
+    "app/(auth)/reset-password.jsx",
+    "components/DrawerItem.jsx",
+    "components/Drawer.jsx"
   ]
 }
