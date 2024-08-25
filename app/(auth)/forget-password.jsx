@@ -1,10 +1,12 @@
-import { View, Text, ScrollView, Dimensions, Image } from "react-native";
+import { View, Text, Dimensions, Image } from "react-native";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { router } from "expo-router";
 import images from "../../constants/images";
 import FormField from "./../../components/FormField";
 import CustomButton from "./../../components/CustomButton";
+import { Fontisto } from "@expo/vector-icons";
+import { ScrollView } from "react-native-virtualized-view";
 
 const ForgetPassword = () => {
   const handleProceed = () => {
@@ -37,6 +39,8 @@ const ForgetPassword = () => {
             title="Email Address"
             otherStyles="mt-8"
             keyboardType="email-address"
+            placeholder={"example@gmail.com"}
+            prefixIcon={<Fontisto name="email" size={24} color="#ccc" />}
           />
           <CustomButton
             title="Get Code"

@@ -4,6 +4,8 @@ import cards from "../assets/images/cards.png";
 import path from "../assets/images/path.png";
 import logo from "../assets/images/logo.png";
 import Wlogo from "../assets/images/ogt1.png";
+import CreateImg from "../assets/images/create-img.jpeg";
+import LoginImg from "../assets/images/login-img.jpeg";
 import bgTop from "../assets/images/bg-top.png";
 import bgBottom from "../assets/images/bg-bottom.png";
 import Blogo from "../assets/images/ogt1.jpg";
@@ -24,4 +26,6 @@ export default {
   Wlogo,
   Blogo,
   Menu,
+  CreateImg,
+  LoginImg,
 };

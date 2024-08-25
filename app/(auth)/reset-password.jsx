@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, Dimensions, Image, Modal } from "react-native";
+import { View, Text, Dimensions, Image, Modal } from "react-native";
 import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { router } from "expo-router";
@@ -6,6 +6,7 @@ import images from "../../constants/images";
 import FormField from "./../../components/FormField";
 import CustomButton from "./../../components/CustomButton";
 import LottieView from "lottie-react-native";
+import { ScrollView } from "react-native-virtualized-view";
 
 const ResetPassword = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -46,11 +47,13 @@ const ResetPassword = () => {
             title="Password"
             otherStyles="mt-8"
             secureTextEntry={true}
+            placeholder={"*********"}
           />
           <FormField
             title="Confirm Password"
             otherStyles="mt-8"
             secureTextEntry={true}
+            placeholder={"*********"}
           />
 
           <CustomButton
