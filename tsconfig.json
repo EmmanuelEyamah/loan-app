@@ -12,9 +12,10 @@
     ".expo/types/**/*.ts",
     "expo-env.d.ts",
     "app/_layout.jsx",
-    "app/(dashboard)/_layout.jsx",
+    "app/(dashboard)/(tabs)/_layout.jsx",
     "app/(auth)/reset-password.jsx",
     "components/DrawerItem.jsx",
-    "components/Drawer.jsx"
+    "components/Drawer.jsx",
+    "app/(screen)/transaction.jsx"
   ]
 }

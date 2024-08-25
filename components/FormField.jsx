@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { View, Text, TextInput, TouchableOpacity, Image } from "react-native";
-
 import { icons } from "../constants";
 
 const FormField = ({
@@ -9,6 +8,8 @@ const FormField = ({
   placeholder,
   handleChangeText,
   otherStyles,
+  prefixIcon,
+  editable = true,
   ...props
 }) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -17,27 +18,23 @@ const FormField = ({
     <View className={`space-y-2 ${otherStyles}`}>
       <Text className="text-base text-black font-pmedium">{title}</Text>
 
-      <View className="w-full h-16 px-4 bg-white-100 rounded-2xl border-2 border-gray-200 focus:border-primary flex flex-row items-center">
+      <View className="w-full h-12 px-2 bg-white-100 rounded-xl border-2 border-gray-200 focus:border-primary flex flex-row items-center">
+        {prefixIcon && <View className="mr-2">{prefixIcon}</View>}
         <TextInput
-          className="flex-1 text-black font-psemibold text-base"
+          className="flex-1 text-black font-pregular text-base"
           value={value}
           placeholder={placeholder}
-          placeholderTextColor="#000"
+          placeholderTextColor="#ccc"
           onChangeText={handleChangeText}
+          editable={editable}
           secureTextEntry={title === "Password" && !showPassword}
           {...props}
         />
 
-        {title === "Password" && (
-          <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
-            <Image
-              source={!showPassword ? icons.eye : icons.eyeHide}
-              className="w-6 h-6"
-              resizeMode="contain"
-            />
-          </TouchableOpacity>
-        )}
-        {title === "Confirm Password" && (
+        {(title === "Password" ||
+          title === "Current Password" ||
+          title === "New Password" ||
+          title === "Confirm Password") && (
           <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
             <Image
               source={!showPassword ? icons.eye : icons.eyeHide}

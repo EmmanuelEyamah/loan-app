@@ -33,7 +33,12 @@ const VerifyOtp = () => {
           <Text className="text-xl text-center font-semibold text-primary uppercase mt-10 font-psemibold">
             Check your Email Inbox for OTP verify code.
           </Text>
-          <FormField title="Verification Code" otherStyles="mt-8" />
+
+          <FormField
+            title="Verification Code"
+            placeholder={"223344"}
+            otherStyles="mt-8"
+          />
           <CustomButton
             title="Submit"
             containerStyles="mt-7"

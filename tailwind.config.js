@@ -32,5 +32,13 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    function ({ addUtilities }) {
+      addUtilities({
+        ".bg-gradient-primary": {
+          backgroundImage: "linear-gradient(90deg, #2C67F2, #3B75F4)",
+        },
+      });
+    },
+  ],
 };
