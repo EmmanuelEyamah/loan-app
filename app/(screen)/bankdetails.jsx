@@ -3,11 +3,16 @@ import React from "react";
 import { AntDesign, Ionicons, MaterialIcons } from "@expo/vector-icons";
 import FormField from "../../components/FormField";
 import CustomButton from "../../components/CustomButton";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { router } from "expo-router";
 
-const BankDetails = ({ goBack }) => {
+const BankDetails = () => {
   return (
-    <View className="flex-1 p-4 bg-white">
-      <Pressable onPress={goBack} className="flex flex-row items-center gap-3">
+    <SafeAreaView className="flex-1 p-4 bg-[#FAF9F6]">
+      <Pressable
+        onPress={() => router.back()}
+        className="flex flex-row items-center gap-3"
+      >
         <Ionicons name="arrow-back" size={24} color="black" />
         <Text className="text-2xl font-semibold">Back</Text>
       </Pressable>
@@ -39,7 +44,7 @@ const BankDetails = ({ goBack }) => {
           handlePress={() => {}}
         />
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 

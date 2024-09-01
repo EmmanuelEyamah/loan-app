@@ -4,6 +4,7 @@ import { Ionicons } from "@expo/vector-icons";
 import CustomButton from "../../components/CustomButton";
 import FormField from "../../components/FormField";
 import { router } from "expo-router";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const DisableAccount = ({ goBack }) => {
   const [isFieldVisible, setIsFieldVisible] = useState(false);
@@ -19,8 +20,11 @@ const DisableAccount = ({ goBack }) => {
   };
 
   return (
-    <View className="flex-1 p-4">
-      <Pressable onPress={goBack} className="flex flex-row items-center gap-3">
+    <SafeAreaView className="flex-1 p-4">
+      <Pressable
+        onPress={() => router.back()}
+        className="flex flex-row items-center gap-3"
+      >
         <Ionicons name="arrow-back" size={24} color="black" />
         <Text className="text-2xl font-pmedium">Back</Text>
       </Pressable>
@@ -57,7 +61,7 @@ const DisableAccount = ({ goBack }) => {
         onRequestClose={() => setIsModalVisible(false)}
       >
         <View className="flex-1 justify-center items-center bg-gray-200 bg-opacity-50">
-          <View className="bg-white flex flex-col justify-center items-center rounded-lg p-6 w-11/12">
+          <View className="bg-[#FAF9F6] flex flex-col justify-center items-center rounded-lg p-6 w-11/12">
             <Text className="text-lg mb-6 text-red-500">
               Are you sure you want to disable your account?
             </Text>
@@ -81,7 +85,7 @@ const DisableAccount = ({ goBack }) => {
           </View>
         </View>
       </Modal>
-    </View>
+    </SafeAreaView>
   );
 };
 

@@ -1,15 +1,16 @@
 import React from "react";
 import { View, Text } from "react-native";
-import { AntDesign } from "@expo/vector-icons";
+import { AntDesign, FontAwesome } from "@expo/vector-icons";
 
 const TxnCard = ({ label, date, time, amount, type }) => {
   const isSent = type === "sent";
   return (
     <View className="w-full justify-between mb-6 flex flex-row items-center">
       <View className="gap-2 flex flex-row items-center">
+        <FontAwesome name="bank" size={24} color="#1f2937" />
         <View>
           <Text className="text-black text-base font-pmedium">
-            {isSent ? "Loan Reayment" : "Loan Received"}
+            {isSent ? "Loan Repayment" : "Loan Received"}
           </Text>
           <Text className="text-[#a5a1a1] text-sm font-psemibold">
             {date} {time}

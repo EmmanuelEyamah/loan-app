@@ -41,6 +41,39 @@ const RootLayout = () => {
         <Stack.Screen name="index" options={{ headerShown: false }} />
         <Stack.Screen name="(auth)" options={{ headerShown: false }} />
         <Stack.Screen name="(dashboard)" options={{ headerShown: false }} />
+        <Stack.Screen
+          name="(screen)/accountDetails"
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="(screen)/bankdetails"
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="(screen)/disableAccount"
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="(screen)/feedback"
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="(screen)/gurantor"
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="(screen)/helpcenter"
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="(screen)/password"
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen name="(screen)/report" options={{ headerShown: false }} />
+        <Stack.Screen
+          name="(screen)/transaction"
+          options={{ headerShown: false }}
+        />
       </Stack>
     </>
   );

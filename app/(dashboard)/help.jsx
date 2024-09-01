@@ -1,15 +1,31 @@
-import React, { useState } from "react";
-import { View, Text, TextInput, Modal } from "react-native";
+import React, { useCallback, useState } from "react";
+import { View, Text, TextInput, Modal, BackHandler } from "react-native";
 import { DrawerToggleButton } from "@react-navigation/drawer";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ScrollView } from "react-native-virtualized-view";
 import CustomButton from "../../components/CustomButton";
 import { Feather, FontAwesome, Fontisto } from "@expo/vector-icons";
+import { useFocusEffect } from "@react-navigation/native";
+import { router } from "expo-router";
 
 const Help = () => {
+  useFocusEffect(
+    useCallback(() => {
+      const onBackPress = () => {
+        router.push("/(tabs)/home");
+        return true;
+      };
+
+      BackHandler.addEventListener("hardwareBackPress", onBackPress);
+
+      return () =>
+        BackHandler.removeEventListener("hardwareBackPress", onBackPress);
+    }, [])
+  );
+
   const [isModalVisible, setIsModalVisible] = useState(false);
   return (
-    <SafeAreaView className="bg-white flex-1 p-4">
+    <SafeAreaView className="bg-[#FAF9F6] flex-1 p-4">
       <View className="flex mb-8 flex-row items-center justify-between">
         <DrawerToggleButton tintColor="#000" />
       </View>
@@ -67,7 +83,7 @@ const Help = () => {
           onRequestClose={() => setIsModalVisible(false)}
         >
           <View className="flex-1 justify-center items-center bg-gray-200 bg-opacity-50">
-            <View className="bg-white flex flex-col justify-center items-center rounded-lg p-6 w-11/12">
+            <View className="bg-[#FAF9F6] flex flex-col justify-center items-center rounded-lg p-6 w-11/12">
               <Text className="text-lg mb-6">Message sent successfully</Text>
               <View className="flex flex-row items-center justify-center">
                 <CustomButton

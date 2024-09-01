@@ -40,7 +40,7 @@ const Loan = () => {
   };
 
   return (
-    <SafeAreaView className="flex-1 bg-white">
+    <SafeAreaView className="flex-1 bg-[#FAF9F6]">
       <View className="p-4">
         <Text className="text-3xl font-pmedium">Loan</Text>
       </View>

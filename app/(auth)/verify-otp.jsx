@@ -12,7 +12,7 @@ const VerifyOtp = () => {
   };
 
   return (
-    <SafeAreaView className="bg-white h-full">
+    <SafeAreaView className="bg-[#FAF9F6] h-full">
       <ScrollView>
         <Image
           source={images.bgTop}

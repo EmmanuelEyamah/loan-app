@@ -1,41 +1,49 @@
-import { View, Text, FlatList } from "react-native";
-import React from "react";
+import { View, Text, FlatList, BackHandler } from "react-native";
+import React, { useCallback } from "react";
 import { DrawerToggleButton } from "@react-navigation/drawer";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { AntDesign, Ionicons } from "@expo/vector-icons";
+import { useFocusEffect } from "@react-navigation/native";
+import { Ionicons } from "@expo/vector-icons";
+import TxnCard from "../../components/TxnCard";
+import { router } from "expo-router";
+
+export const transactions = [
+  { id: "1", type: "sent", date: "12 | 08 | 24 -- 9:45am", amount: "12,000" },
+  {
+    id: "2",
+    type: "received",
+    date: "13 | 08 | 24 -- 10:15am",
+    amount: "15,000",
+  },
+  { id: "3", type: "sent", date: "14 | 08 | 24 -- 2:30pm", amount: "8,500" },
+];
 
 const Notifications = () => {
+  useFocusEffect(
+    useCallback(() => {
+      const onBackPress = () => {
+        router.push("/(tabs)/home");
+        return true;
+      };
+
+      BackHandler.addEventListener("hardwareBackPress", onBackPress);
+
+      return () =>
+        BackHandler.removeEventListener("hardwareBackPress", onBackPress);
+    }, [])
+  );
+
   return (
-    <SafeAreaView className="bg-white flex-1 p-4">
+    <SafeAreaView className="bg-[#FAF9F6] flex-1 p-4">
       <View className="flex mb-8 flex-row items-center justify-between">
         <Text className="text-2xl font-psemibold">Notifications</Text>
         <DrawerToggleButton tintColor="#000" />
       </View>
       <FlatList
-        data={["1", "2", "3", "4"]}
-        keyExtractor={(item) => item.$id}
+        data={transactions}
+        keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <View className="w-full rounded-lg p-4 border border-gray-200 justify-between mb-6 flex flex-row items-center">
-            <View className="gap-2 flex flex-row items-center">
-              <View>
-                <Text className="text-black text-base font-pmedium">
-                  Loan Repayment
-                </Text>
-                <Text className="text-[#a5a1a1] text-sm font-psemibold">
-                  12| 08 | 24 -- 9:45am
-                </Text>
-              </View>
-            </View>
-            <View className="gap-2 flex flex-row items-center">
-              <Text className="text-black text-lg font-pmedium">N 12,000</Text>
-              <AntDesign
-                name="arrowup"
-                size={24}
-                color="lightgreen"
-                style={{ transform: "rotate(45deg)" }}
-              />
-            </View>
-          </View>
+          <TxnCard type={item.type} date={item.date} amount={item.amount} />
         )}
         ListEmptyComponent={() => (
           <View className="flex w-full items-center justify-center h-full p-5">

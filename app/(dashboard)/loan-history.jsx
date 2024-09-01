@@ -1,18 +1,33 @@
-import { View, Text, Pressable, FlatList } from "react-native";
-import React from "react";
+import { View, Text, Pressable, FlatList, BackHandler } from "react-native";
+import React, { useCallback } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { ScrollView } from "react-native-virtualized-view";
 import TxnCard from "../../components/TxnCard";
 import { transactions } from "./(tabs)/home";
+import { useFocusEffect } from "@react-navigation/native";
 
 const LoanHistory = () => {
+  useFocusEffect(
+    useCallback(() => {
+      const onBackPress = () => {
+        router.push("/(tabs)/home");
+        return true;
+      };
+
+      BackHandler.addEventListener("hardwareBackPress", onBackPress);
+
+      return () =>
+        BackHandler.removeEventListener("hardwareBackPress", onBackPress);
+    }, [])
+  );
+
   const handleBackPress = () => {
-    router.push("/home");
+    router.push("/(tabs)/home");
   };
   return (
-    <SafeAreaView className="bg-white flex-1 p-4">
+    <SafeAreaView className="bg-[#FAF9F6] flex-1 p-4">
       <Pressable
         onPress={handleBackPress}
         className="flex flex-row items-center gap-3"

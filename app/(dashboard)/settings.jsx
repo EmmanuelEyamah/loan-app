@@ -1,27 +1,35 @@
-import { View, Text, FlatList, Pressable, Modal } from "react-native";
-import React, { useState } from "react";
-import { SafeAreaView } from "react-native-safe-area-context";
 import {
-  AntDesign,
-  Entypo,
-  Ionicons,
-  MaterialCommunityIcons,
-  MaterialIcons,
-} from "@expo/vector-icons";
+  View,
+  Text,
+  FlatList,
+  Pressable,
+  Modal,
+  BackHandler,
+} from "react-native";
+import React, { useCallback, useState } from "react";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { AntDesign, Entypo, Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { ScrollView } from "react-native-virtualized-view";
 import { router } from "expo-router";
-import AccountDetails from "../(screen)/accountDetails";
-import DisableAccount from "../(screen)/disableAccount";
-import HelpCenter from "../(screen)/helpcenter";
-import Feedback from "../(screen)/feedback";
 import CustomButton from "../../components/CustomButton";
 import { DrawerToggleButton } from "@react-navigation/drawer";
-import Report from "../(screen)/report";
-import Password from "../(screen)/password";
-import BankDetails from "../(screen)/bankdetails";
-import Guarantor from "../(screen)/gurantor";
+import { useFocusEffect } from "@react-navigation/native";
 
 const Settings = () => {
+  useFocusEffect(
+    useCallback(() => {
+      const onBackPress = () => {
+        router.push("/(tabs)/home");
+        return true;
+      };
+
+      BackHandler.addEventListener("hardwareBackPress", onBackPress);
+
+      return () =>
+        BackHandler.removeEventListener("hardwareBackPress", onBackPress);
+    }, [])
+  );
+
   const [currentScreen, setCurrentScreen] = useState("Settings");
   const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -30,37 +38,19 @@ const Settings = () => {
       id: "1",
       icon: <AntDesign name="user" size={24} color="black" />,
       title: "Account Details",
-      screen: "AccountDetails",
+      screen: "accountDetails",
     },
     {
       id: "2",
       icon: <AntDesign name="lock" size={24} color="black" />,
       title: "Change Password",
-      screen: "Password",
+      screen: "password",
     },
     {
       id: "3",
-      icon: <MaterialIcons name="account-balance" size={24} color="black" />,
-      title: "Bank Details",
-      screen: "Bank",
-    },
-    {
-      id: "4",
-      icon: (
-        <MaterialCommunityIcons
-          name="card-account-details-outline"
-          size={24}
-          color="black"
-        />
-      ),
-      title: "Guarantor Details",
-      screen: "Guarantor",
-    },
-    {
-      id: "5",
       icon: <AntDesign name="poweroff" size={24} color="black" />,
       title: "Disable Account",
-      screen: "DisableAccount",
+      screen: "disableAccount",
     },
   ];
 
@@ -69,44 +59,39 @@ const Settings = () => {
       id: "5",
       icon: <Entypo name="help" size={24} color="black" />,
       title: "Help Center",
-      screen: "HelpCenter",
+      screen: "helpcenter",
     },
     {
       id: "6",
       icon: <MaterialIcons name="feedback" size={24} color="black" />,
       title: "Customer Feedback",
-      screen: "CustomerFeedback",
+      screen: "feedback",
     },
     {
       id: "7",
       icon: <Entypo name="bug" size={24} color="black" />,
       title: "Report A Bug",
-      screen: "Report",
+      screen: "report",
     },
   ];
 
+  const handleNavigation = (screen) => {
+    switch (screen) {
+      case "Logout":
+        setIsModalVisible(true);
+        break;
+      default:
+        router.push(`/(screen)/${screen}`);
+        break;
+    }
+  };
+
   const renderContent = () => {
     switch (currentScreen) {
-      case "AccountDetails":
-        return <AccountDetails goBack={() => setCurrentScreen("Settings")} />;
-      case "DisableAccount":
-        return <DisableAccount goBack={() => setCurrentScreen("Settings")} />;
-      case "HelpCenter":
-        return <HelpCenter goBack={() => setCurrentScreen("Settings")} />;
-      case "CustomerFeedback":
-        return <Feedback goBack={() => setCurrentScreen("Settings")} />;
-      case "Password":
-        return <Password goBack={() => setCurrentScreen("Settings")} />;
-      case "Bank":
-        return <BankDetails goBack={() => setCurrentScreen("Settings")} />;
-      case "Guarantor":
-        return <Guarantor goBack={() => setCurrentScreen("Settings")} />;
-      case "Report":
-        return <Report goBack={() => setCurrentScreen("Settings")} />;
       default:
         return (
           <>
-            <View className="flex items-center justify-center">
+            <View className="flex items-center mt-10 justify-center">
               <Text className="text-3xl font-psemibold">Settings</Text>
             </View>
             <ScrollView>
@@ -119,11 +104,7 @@ const Settings = () => {
                   keyExtractor={(item) => item.id}
                   renderItem={({ item }) => (
                     <Pressable
-                      onPress={() =>
-                        item.screen === "Logout"
-                          ? setIsModalVisible(true)
-                          : setCurrentScreen(item.screen)
-                      }
+                      onPress={() => handleNavigation(item.screen)}
                       className="w-full h-[70px] border border-gray-200 mb-4 rounded-lg flex flex-row px-4 py-3 justify-between items-center"
                     >
                       <View className="flex flex-row gap-2 items-center">
@@ -154,7 +135,7 @@ const Settings = () => {
                   keyExtractor={(item) => item.id}
                   renderItem={({ item }) => (
                     <Pressable
-                      onPress={() => setCurrentScreen(item.screen)}
+                      onPress={() => handleNavigation(item.screen)}
                       className="w-full h-[70px] border border-gray-200 mb-4 rounded-lg flex flex-row px-4 py-3 justify-between items-center"
                     >
                       <View className="flex flex-row gap-2 items-center">
@@ -183,7 +164,7 @@ const Settings = () => {
   };
 
   return (
-    <SafeAreaView className="flex-1 bg-white p-4">
+    <SafeAreaView className="flex-1 bg-[#FAF9F6] p-4">
       {currentScreen === "Settings" && (
         <View className="flex mb-8 flex-row items-center justify-between">
           <DrawerToggleButton tintColor="#000" />
@@ -197,7 +178,7 @@ const Settings = () => {
         onRequestClose={() => setIsModalVisible(false)}
       >
         <View className="flex-1 justify-center items-center bg-gray-200 bg-opacity-50">
-          <View className="bg-white flex flex-col justify-center items-center rounded-lg p-6 w-11/12">
+          <View className="bg-[#FAF9F6] flex flex-col justify-center items-center rounded-lg p-6 w-11/12">
             <Text className="text-lg mb-6 text-red-500">
               Are you sure you want to logout?
             </Text>

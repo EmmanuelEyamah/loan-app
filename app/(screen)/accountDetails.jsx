@@ -1,23 +1,22 @@
-import { View, Text, Pressable, Image, TextInput } from "react-native";
+import { View, Text, Pressable, Image } from "react-native";
 import React, { useState } from "react";
-import {
-  AntDesign,
-  Entypo,
-  Feather,
-  Fontisto,
-  Ionicons,
-} from "@expo/vector-icons";
+import { AntDesign, Feather, Fontisto, Ionicons } from "@expo/vector-icons";
 import { images } from "../../constants";
 import FormField from "../../components/FormField";
 import { ScrollView } from "react-native-virtualized-view";
+import { router } from "expo-router"; // Import router from expo-router
 import CustomButton from "../../components/CustomButton";
+import { SafeAreaView } from "react-native-safe-area-context";
 
-const AccountDetails = ({ goBack }) => {
+const AccountDetails = () => {
   const [isEditing, setIsEditing] = useState(false);
 
   return (
-    <View className="flex-1 p-4 bg-white">
-      <Pressable onPress={goBack} className="flex flex-row items-center gap-3">
+    <SafeAreaView className="flex-1 p-4 bg-[#FAF9F6]">
+      <Pressable
+        onPress={() => router.back()}
+        className="flex flex-row items-center gap-3"
+      >
         <Ionicons name="arrow-back" size={24} color="black" />
         <Text className="text-2xl font-semibold">Back</Text>
       </Pressable>
@@ -86,16 +85,9 @@ const AccountDetails = ({ goBack }) => {
             otherStyles="mt-8"
             prefixIcon={<Fontisto name="date" size={24} color="#ccc" />}
           />
-          <FormField
-            title="Address"
-            value={"Lagos-Ikeji"}
-            editable={isEditing}
-            otherStyles="mt-8"
-            prefixIcon={<Entypo name="address" size={24} color="#ccc" />}
-          />
         </View>
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 };
 

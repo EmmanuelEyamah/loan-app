@@ -10,11 +10,15 @@ import {
 import FormField from "../../components/FormField";
 import CustomButton from "../../components/CustomButton";
 import { ScrollView } from "react-native-virtualized-view";
+import { router } from "expo-router";
 
-const Guarantor = ({ goBack }) => {
+const Guarantor = () => {
   return (
-    <ScrollView className="flex-1 p-4 bg-white">
-      <Pressable onPress={goBack} className="flex flex-row items-center gap-3">
+    <ScrollView className="flex-1 p-4 bg-[#FAF9F6]">
+      <Pressable
+        onPress={() => router.back()}
+        className="flex flex-row items-center gap-3"
+      >
         <Ionicons name="arrow-back" size={24} color="black" />
         <Text className="text-2xl font-semibold">Back</Text>
       </Pressable>

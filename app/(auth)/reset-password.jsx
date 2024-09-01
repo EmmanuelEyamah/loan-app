@@ -21,7 +21,7 @@ const ResetPassword = () => {
   };
 
   return (
-    <SafeAreaView className="bg-white h-full">
+    <SafeAreaView className="bg-[#FAF9F6] h-full">
       <ScrollView>
         <Image
           source={images.bgTop}
@@ -69,7 +69,7 @@ const ResetPassword = () => {
             onRequestClose={() => setIsModalVisible(false)}
           >
             <View className="flex-1 justify-center items-center bg-gray-200 bg-opacity-50">
-              <View className="bg-white flex flex-col justify-center items-center rounded-lg p-6 w-11/12">
+              <View className="bg-[#FAF9F6] flex flex-col justify-center items-center rounded-lg p-6 w-11/12">
                 <Text className="text-2xl font-semibold mb-4">
                   Password Reset Successfull
                 </Text>

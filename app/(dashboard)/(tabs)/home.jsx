@@ -1,5 +1,14 @@
-import React, { useState } from "react";
-import { View, Text, Image, FlatList, Pressable } from "react-native";
+import React, { useCallback, useState } from "react";
+import {
+  View,
+  Text,
+  Image,
+  FlatList,
+  Pressable,
+  BackHandler,
+  Modal,
+  TouchableOpacity,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import images from "../../../constants/images";
 import { DrawerToggleButton } from "@react-navigation/drawer";
@@ -12,6 +21,7 @@ import {
 import { router } from "expo-router";
 import { ScrollView } from "react-native-virtualized-view";
 import TxnCard from "../../../components/TxnCard";
+import { useFocusEffect } from "@react-navigation/native";
 
 export const transactions = [
   { id: "1", type: "sent", date: "12 | 08 | 24 -- 9:45am", amount: "12,000" },
@@ -26,6 +36,25 @@ export const transactions = [
 
 const Home = () => {
   const [isBalanceVisible, setIsBalanceVisible] = useState(false);
+  const [isExitModalVisible, setIsExitModalVisible] = useState(false);
+
+  useFocusEffect(
+    useCallback(() => {
+      const onBackPress = () => {
+        setIsExitModalVisible(true);
+        return true; // Prevent default back behavior
+      };
+
+      BackHandler.addEventListener("hardwareBackPress", onBackPress);
+
+      return () =>
+        BackHandler.removeEventListener("hardwareBackPress", onBackPress);
+    }, [])
+  );
+
+  const handleExitApp = () => {
+    BackHandler.exitApp(); // Exit the app
+  };
 
   const options = [
     {
@@ -55,7 +84,7 @@ const Home = () => {
   };
 
   return (
-    <SafeAreaView className="bg-white flex-1">
+    <SafeAreaView className="bg-[#FAF9F6] flex-1">
       <View className="flex px-4 py-3">
         <View className="flex fixed justify-between items-start flex-row">
           <View className="items-center flex flex-row gap-3">
@@ -157,6 +186,35 @@ const Home = () => {
           />
         </View>
       </ScrollView>
+
+      <Modal
+        visible={isExitModalVisible}
+        transparent
+        animationType="slide"
+        onRequestClose={() => setIsExitModalVisible(false)}
+      >
+        <View className="flex-1 justify-center items-center bg-gray-500 bg-opacity-50">
+          <View className="bg-white p-5 rounded-lg w-80">
+            <Text className="text-xl font-pmedium mb-4">
+              Do you want to exit the app?
+            </Text>
+            <View className="flex-row justify-between">
+              <TouchableOpacity
+                onPress={() => setIsExitModalVisible(false)}
+                className="px-5 py-2 bg-gray-200 rounded"
+              >
+                <Text className="text-base font-pmedium">No</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={handleExitApp}
+                className="px-5 py-2 bg-red-500 rounded"
+              >
+                <Text className="text-base font-pmedium text-white">Yes</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </Modal>
     </SafeAreaView>
   );
 };

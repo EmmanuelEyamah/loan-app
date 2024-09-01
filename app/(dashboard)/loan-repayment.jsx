@@ -1,20 +1,35 @@
-import { View, Text, Pressable } from "react-native";
-import React, { useState } from "react";
+import { View, Text, Pressable, BackHandler } from "react-native";
+import React, { useCallback, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { FontAwesome6, Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import CustomButton from "../../components/CustomButton";
 import FormField from "../../components/FormField";
+import { useFocusEffect } from "@react-navigation/native";
 
 const LoanRepayment = () => {
   const [activeCard, setActiveCard] = useState("full");
 
+  useFocusEffect(
+    useCallback(() => {
+      const onBackPress = () => {
+        router.push("/(tabs)/home");
+        return true;
+      };
+
+      BackHandler.addEventListener("hardwareBackPress", onBackPress);
+
+      return () =>
+        BackHandler.removeEventListener("hardwareBackPress", onBackPress);
+    }, [])
+  );
+
   const handleBackPress = () => {
-    router.push("/home");
+    router.push("/(tabs)/home");
   };
 
   return (
-    <SafeAreaView className="bg-white flex-1 p-4">
+    <SafeAreaView className="bg-[#FAF9F6] flex-1 p-4">
       <Pressable
         onPress={handleBackPress}
         className="flex flex-row items-center gap-3"
